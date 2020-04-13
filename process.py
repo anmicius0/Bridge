@@ -3,7 +3,7 @@
 import subprocess
 import sys
 
-
+#ssh command define
 def SSH(COMMAND):
     # Host
     HOST = "allenlin3024@cnmc.tw"
@@ -19,4 +19,5 @@ def SSH(COMMAND):
         print (sys.stderr, "ERROR: %s" % error)
     else:
         print(result)
+#where am i
 SSH("pwd")
