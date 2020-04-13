@@ -50,10 +50,10 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
 
     # send request to add metadata (ACF)
     r = requests.post('https://wordpress.hsnu.org/index.php/wp-json/acf/v3/spost/{id}'.format(id),
-                      data=json.dumps(payload), auth=HTTPBasicAuth('linanmicius@gmail.com', 'K*8rY8ky'))
+                      json=payload, auth=HTTPBasicAuth('linanmicius@gmail.com', 'K*8rY8ky'))
 
     # if error
-    if r.status_code != 201:
+    if r.status_code == 201:
         print(r.content)
 
 
@@ -73,7 +73,8 @@ def add_post(title, content=None):
 
 
     Returns:
-        dictionary
+        success: {"status": "success", "response": (dict), "id": (int)}
+        error: {"status": "error", "response": (dict)}
     """
 
     # data to post
@@ -89,11 +90,16 @@ def add_post(title, content=None):
 
     # if success
     if r.status_code == 201:
+        print({"status": "success",
+               "title": json.loads(r.content)['title']['raw'],
+               "id": json.loads(r.content)["id"]})
+
         return {"status": "success", "response": json.loads(r.content), "id": json.loads(r.content)["id"]}
     # if error
     else:
-        return {"status": "error", "response": json.load(r.content), "title": title}
+        print({"status": "error", "response": json.loads(r.content), "title": title})
+        return {"status": "error", "response": json.loads(r.content)}
 
 
 if __name__ == "__main__":
-    print(add_post("美好的標題", "精彩的內容"))
+    add_post("美好的標題", "精彩的內容")
