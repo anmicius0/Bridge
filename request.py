@@ -35,10 +35,10 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
 
 
     Returns:
-        int: -1 if successful, post id if faild.
+        dictionary
     """
 
-    # data
+    # data to post
     payload = {
         "fields": {
             "genre": genre,
@@ -49,7 +49,7 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
     }
 
     # send request to add metadata (ACF)
-    r = requests.post('https://wordpress.hsnu.org/index.php/wp-json/acf/v3/spost/240{id}'.format(id),
+    r = requests.post('https://wordpress.hsnu.org/index.php/wp-json/acf/v3/spost/{id}'.format(id),
                       data=json.dumps(payload), auth=HTTPBasicAuth('linanmicius@gmail.com', 'K*8rY8ky'))
 
     # if error
@@ -59,7 +59,7 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
 
 def add_post(title, content=None):
     """
-    This function send request to ACF REST API.
+    This function send request to WP REST API.
 
 
     Args:
@@ -76,7 +76,7 @@ def add_post(title, content=None):
         dictionary
     """
 
-    # data
+    # data to post
     payload = {
         "title": title,
         "content": content,
@@ -85,15 +85,15 @@ def add_post(title, content=None):
 
     # send request to add post (without metadata)
     r = requests.post('https://wordpress.hsnu.org/index.php/wp-json/wp/v2/spost',
-                      data=json.dumps(payload), auth=HTTPBasicAuth('linanmicius@gmail.com', 'K*8rY8ky'))
+                      json=payload, auth=HTTPBasicAuth('linanmicius@gmail.com', 'K*8rY8ky'))
 
     # if success
     if r.status_code == 201:
-        return {"status": "success", "id": json.loads(r.content)["id"]}
+        return {"status": "success", "response": json.loads(r.content), "id": json.loads(r.content)["id"]}
     # if error
     else:
         return {"status": "error", "response": json.load(r.content), "title": title}
 
 
 if __name__ == "__main__":
-    add_post("美好的標題", "精彩的內容")
+    print(add_post("美好的標題", "精彩的內容"))
