@@ -1,7 +1,7 @@
 import pymysql
 
 host = 'shen.bike'
-port = 3307
+port = 8080
 user = 'root'
 passwd = 'cnmc'
 db = 'hsnuwp'
