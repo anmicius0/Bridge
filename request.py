@@ -7,7 +7,6 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
     """
     This function send request to ACF REST API.
 
-
     Args:
         id (int):
             The targe post id.
@@ -32,7 +31,6 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
             The list consist of dictionaries.
             ex: [{ "description": "Firefox", "url": "firefox.com" },
                  { "description": "DuckDuckGo", "url": "ddg.gg" }]
-
 
     Returns:
         dictionary
