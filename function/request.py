@@ -78,7 +78,7 @@ def add_post(title, content=None):
 
 
     Returns:
-        success: {"status": "success", "response": (dict), "id": (int)}
+        success: {"status": "success", "response": (dict), "title": (str), "id": (int)}
         error: {"status": "error", "response": (dict), "title": (str)}
     """
 
@@ -95,11 +95,10 @@ def add_post(title, content=None):
 
     # if success
     if r.status_code == 201:
-        print({"status": "success",
-               "title": json.loads(r.content)['title']['raw'],
-               "id": json.loads(r.content)["id"]})
+        print({"status": "success", "response": json.loads(r.content),
+               "title": title, "id": json.loads(r.content)["id"]})
 
-        return {"status": "success", "response": json.loads(r.content), "id": json.loads(r.content)["id"]}
+        return {"status": "success", "response": json.loads(r.content), "title": title, "id": json.loads(r.content)["id"]}
     # if error
     else:
         print({"status": "error", "response": json.loads(r.content), "title": title})
