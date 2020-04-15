@@ -1,4 +1,4 @@
-from request import add_post, add_acf
+from function.request import add_acf, add_post
 
 
 def main():
