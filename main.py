@@ -16,7 +16,7 @@ def main():
     if acf_r["status"] == "error":
         return acf_r
 
-    return ("success", acf_r)
+    return "success"
 
 
 if __name__ == "__main__":
