@@ -54,7 +54,6 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
 
     # if success
     if r.status_code == 200:
-        print({"status": "error", "response": json.loads(r.content), "id": id})
         return {"status": "success", "response": json.loads(r.content), "id": id}
     # if error
     else:
@@ -95,9 +94,6 @@ def add_post(title, content=None):
 
     # if success
     if r.status_code == 201:
-        print({"status": "success", "response": json.loads(r.content),
-               "title": title, "id": json.loads(r.content)["id"]})
-
         return {"status": "success", "response": json.loads(r.content), "title": title, "id": json.loads(r.content)["id"]}
     # if error
     else:
