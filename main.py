@@ -7,7 +7,7 @@ def main():
     post_r = add_post("美好的標題", "精彩的內容")
 
     if post_r["status"] == "error":
-        return post_r
+        return "add_post error"
 
     # try acf
     acf_r = add_acf(id=post_r["id"], genre="學生", sub_genre_student="段考", repeater_link=[
@@ -17,7 +17,3 @@ def main():
         return acf_r
 
     return "success"
-
-
-if __name__ == "__main__":
-    main()

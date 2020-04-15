@@ -33,8 +33,8 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
                  { "description": "DuckDuckGo", "url": "ddg.gg" }]
 
     Returns:
-        success: {"status": "success", "response": (dict)}
-        error: {"status": "error", "response": (dict)}
+        success: {"status": "success", "response": (dict), "id": (str)}
+        error: {"status": "error", "response": (dict), "id": (str)}
 
     """
 
@@ -54,13 +54,12 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
 
     # if success
     if r.status_code == 200:
-        print({"status": "success", "id": id})
-
+        print({"status": "error", "response": json.loads(r.content), "id": id})
         return {"status": "success", "response": json.loads(r.content), "id": id}
     # if error
     else:
-        print({"status": "error", "response": json.loads(r.content)})
-        return {"status": "error", "response": json.loads(r.content)}
+        print({"status": "error", "response": json.loads(r.content), "id": id})
+        return {"status": "error", "response": json.loads(r.content), "id": id}
 
 
 def add_post(title, content=None):
@@ -80,7 +79,7 @@ def add_post(title, content=None):
 
     Returns:
         success: {"status": "success", "response": (dict), "id": (int)}
-        error: {"status": "error", "response": (dict)}
+        error: {"status": "error", "response": (dict), "title": (str)}
     """
 
     # data to post
@@ -104,4 +103,4 @@ def add_post(title, content=None):
     # if error
     else:
         print({"status": "error", "response": json.loads(r.content), "title": title})
-        return {"status": "error", "response": json.loads(r.content)}
+        return {"status": "error", "response": json.loads(r.content), "title": title}
