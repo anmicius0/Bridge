@@ -53,7 +53,7 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
                       json=payload, auth=HTTPBasicAuth('linanmicius@gmail.com', 'K*8rY8ky'))
 
     # if success
-    if r.status_code == 200:
+    if json.loads(r.content)["acf"]["genre"] == genre:
         return {"status": "success", "response": json.loads(r.content), "id": id}
     # if error
     else:
