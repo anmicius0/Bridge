@@ -1,7 +1,7 @@
 from function.request import add_acf, add_post
 
 
-def main():
+def main(request):
 
     # try post
     post_r = add_post("美好的標題", "精彩的內容")
