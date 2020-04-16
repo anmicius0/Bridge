@@ -33,18 +33,18 @@ def SSH(COMMAND):
         print(sys.stderr, "ERROR: %s" % error)
     # if success
     else:
-        print(result)
-
+        for i in range(len(result)):
+            print(result[i].decode().replace("\n",''))
 
 # reset
-strings = "echo > temp.py"
+strings = "echo > temp.py;"
 Arg = False
 # if there are Args then delete it
 for times in range(len(open(file, 'r').readlines())):
     count = linecache.getline(file, times + 1)
     if count.find("\"\"\"") == -1:
         if not Arg:
-            strings += "echo \"" + count.replace("\n", "") + "\">>temp.py;"
+            strings += "echo \'" + count.replace("\n", "") + "\'>>temp.py;"
     else:
         if Arg:
             Arg = False
@@ -52,5 +52,4 @@ for times in range(len(open(file, 'r').readlines())):
             Arg = True
 # throw the SSH python
 strings += "python3 temp.py;rm temp.py"
-print(strings)
 SSH(strings)
