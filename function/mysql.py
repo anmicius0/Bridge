@@ -7,12 +7,12 @@ def get_posts(length):
 
     Args:
         length (int): Number of post you want to get (-1 for all posts)
-        sql (str): What You Want to do
-        data (tuple): What you get from the sql
 
     Returns:
         A Tuple.
+        ex: ((category, title ,content, link, file), () ...)
     """
+
     # set connect path
     host = 'shen.bike'
     port = 8080
@@ -33,23 +33,19 @@ def get_posts(length):
 
     # SQL
     if(length == -1):
-        sql = 'SELECT * FROM `wp_btaeon_msgs` ORDER BY msg_time ASC'
+        sql = 'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
+                FROM wp_btaeon_msgs ORDER BY msg_time ASC'
     else:
-        sql = 'SELECT * FROM `wp_btaeon_msgs` ORDER BY msg_time DESC ' + 'LIMIT ' + length
+        sql = 'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
+                FROM wp_btaeon_msgs ORDER BY msg_time DESC LIMIT {}'.format(length)
 
     # execute
     cursor.execute(sql)
 
-    # 關閉連線
-    connection.close()
-
     # all result
     data = cursor.fetchall()
 
-    return_dict = data
+    # disconnect
+    connection.close()
 
-    print("return:", return_dict[0])
-    return return_dict
-
-
-get_posts(-1)
+    return data
