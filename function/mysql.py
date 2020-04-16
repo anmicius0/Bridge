@@ -6,12 +6,10 @@ def get_posts(length):
     This function send request to ACF REST API.
 
     Args:
-        length (int): Number of post you want to get (-1 for all posts)
-        sql (str): What You Want to do
-        data (tuple): What you get from the sql
+        length (int): Number of post you want to get (0 for all posts)
 
     Returns:
-        A Tuple.
+        A Tuple of all posts you want.
     """
     # set connect path
     host = 'shen.bike'
@@ -32,15 +30,16 @@ def get_posts(length):
     cursor = connection.cursor()
 
     # SQL
-    if(length == -1):
+    if(length == 0):
         sql = 'SELECT * FROM `wp_btaeon_msgs` ORDER BY msg_time ASC'
     else:
-        sql = 'SELECT * FROM `wp_btaeon_msgs` ORDER BY msg_time DESC ' + 'LIMIT ' + length
+        sql = 'SELECT * FROM `wp_btaeon_msgs` ORDER BY msg_time DESC ' + \
+            'LIMIT ' + str(length)
 
     # execute
     cursor.execute(sql)
 
-    # 關閉連線
+    # disconnect
     connection.close()
 
     # all result
@@ -48,8 +47,7 @@ def get_posts(length):
 
     return_dict = data
 
-    print("return:", return_dict[0])
     return return_dict
 
 
-get_posts(-1)
+print("return:", get_posts(0))
