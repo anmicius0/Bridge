@@ -42,12 +42,8 @@ def get_posts(length):
     # all result
     data = cursor.fetchall()
 
-    print(type(data[0][3]))
-
     return_dict = [{}, {}, {}]
     return 0
 
-length = -1
-get_posts()
 # 關閉連線
 connection.close()
