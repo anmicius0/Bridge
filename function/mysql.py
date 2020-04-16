@@ -1,5 +1,6 @@
 import pymysql
 
+# set connect path
 host = 'shen.bike'
 port = 8080
 user = 'root'
@@ -16,16 +17,37 @@ connection = pymysql.connect(host=host,
                              # protocol=protocol,
                              charset=charset)
 
-
-# 建立操作游標
+# create cursor
 cursor = connection.cursor()
-# SQL語法（查詢資料庫版本）
-sql = 'SELECT VERSION()'
-# 執行語法
-cursor.execute(sql)
-# 選取第一筆結果
-data = cursor.fetchone()
 
-print("Database version : %s " % data)
+
+def get_posts(length):
+     """This function send request to ACF REST API.
+
+        Args:
+            length (int): Number of post you want to get (-1 for all posts)
+
+        Returns:
+
+        """
+
+    # SQL
+    if length == -1:
+        sql = 'SELECT * FROM `wp_btaeon_msgs` ORDER BY msg_time ASC'
+    else:
+        sql = 'SELECT * FROM `wp_btaeon_msgs` ORDER BY msg_time DESC ' + 'LIMIT ' + length
+
+    # 執行語法
+    cursor.execute(sql)
+    # all result
+    data = cursor.fetchall()
+
+    print(type(data[0][3]))
+
+    return_dict = [{}, {}, {}]
+    return 0
+
+length = -1
+get_posts()
 # 關閉連線
 connection.close()
