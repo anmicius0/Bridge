@@ -1,5 +1,8 @@
 import subprocess
 import sys
+import linecache
+
+file = "test.py"
 
 
 def SSH(COMMAND):
@@ -33,5 +36,21 @@ def SSH(COMMAND):
         print(result)
 
 
-# where am i
-SSH("pwd")
+# reset
+strings = "echo > temp.py"
+Arg = False
+# if there are Args then delete it
+for times in range(len(open(file, 'r').readlines())):
+    count = linecache.getline(file, times + 1)
+    if count.find("\"\"\"") == -1:
+        if not Arg:
+            strings += "echo \"" + count.replace("\n", "") + "\">>temp.py;"
+    else:
+        if Arg:
+            Arg = False
+        elif not Arg:
+            Arg = True
+# throw the SSH python
+strings += "python3 temp.py;rm temp.py"
+print(strings)
+SSH(strings)
