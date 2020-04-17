@@ -1,6 +1,8 @@
 from function.request import add_acf, add_post
 from function.mysql import get_posts
 from function.transform import update_post_format
+from datetime import datetime
+from time import sleep
 
 
 def main():
@@ -23,6 +25,9 @@ def main():
 
             # print success message
             print(f"Success on {post['title']}")
+
+            # reset timeout
+            sleep(0.01)
 
         except ValueError:
             pass
