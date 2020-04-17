@@ -46,4 +46,3 @@ def get_posts(length):
 
     # all result
     return cursor.fetchall()
-

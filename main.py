@@ -26,3 +26,6 @@ def main(request):
 
         except ValueError:
             pass
+
+    # everything success
+    return "success for all"
