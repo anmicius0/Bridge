@@ -1,9 +1,10 @@
+import os
 import json
 import requests
 from requests.auth import HTTPBasicAuth
 
 
-def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_link=None):
+def add_acf(id, genre, sub_genre_student, repeater_link=None):
     """
     This function send request to ACF REST API.
 
@@ -16,16 +17,6 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
             Main genre of a post
             ex:"學生"
             op:"學生" / "教師" / "榮譽榜" / "講座及課程" / "競賽" / "微課程" / "菜單" / "來文"
-
-        sub_genre_student (string, optional):
-            Sub genre under "學生"
-            ex: "段考"
-            op: "段考" / "周輔" / "檢定" / "活動" / "徵才" / "課表" / "獎學金"
-
-        sub_genre_race (string, optional):
-            Sub genre under "競賽"
-            ex: "語文"
-            op: "語文" / "自然" / "美術" / "資訊" / "其他"
 
         repeater_link (list, optional):
             The list consist of dictionaries.
@@ -42,7 +33,6 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
     payload = {
         "fields": {
             "genre": genre,
-            "sub_genre_race": sub_genre_race,
             "sub_genre_student": sub_genre_student,
             "repeater_link": repeater_link
         }
@@ -62,8 +52,7 @@ def add_acf(id, genre, sub_genre_student=None, sub_genre_race=None, repeater_lin
 
 
 def add_post(title, content=None):
-    """
-    This function send request to WP REST API.
+    """This function send request to WP REST API.
 
 
     Args:
@@ -77,8 +66,11 @@ def add_post(title, content=None):
 
 
     Returns:
-        success: {"status": "success", "response": (dict), "title": (str), "id": (int)}
-        error: {"status": "error", "response": (dict), "title": (str)}
+        success: {"status": "success", "id": (int)}
+
+
+    Raises:
+        ValueError: If Wordpress return error
     """
 
     # data to post
@@ -90,12 +82,13 @@ def add_post(title, content=None):
 
     # send request to add post (without metadata)
     r = requests.post('https://wordpress.hsnu.org/index.php/wp-json/wp/v2/spost',
-                      json=payload, auth=HTTPBasicAuth('linanmicius@gmail.com', 'K*8rY8ky'))
+                      json=payload, auth=HTTPBasicAuth("linanmicius@gmail.com", "K*8rY8ky"))
 
     # if success
     if r.status_code == 201:
-        return {"status": "success", "response": json.loads(r.content), "title": title, "id": json.loads(r.content)["id"]}
+        return {"status": "success", "id": json.loads(r.content)["id"]}
     # if error
     else:
-        print({"status": "error", "response": json.loads(r.content), "title": title})
-        return {"status": "error", "response": json.loads(r.content), "title": title}
+        print(json.loads(r.content))
+        raise ValueError(f"ADD_POST_ERROR: There is error for post {title} in add_post() process. \
+                            Error message from wp: {json.loads(r.content)}")
