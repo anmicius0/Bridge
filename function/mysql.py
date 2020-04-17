@@ -41,10 +41,9 @@ def get_posts(length):
     # execute
     cursor.execute(sql)
 
-    # all result
-    data = cursor.fetchall()
-
     # disconnect
     connection.close()
 
-    return data
+    # all result
+    return cursor.fetchall()
+
