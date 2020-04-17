@@ -1,36 +1,27 @@
 from function.request import add_acf, add_post
-from function.mysql import get_posts
+from function.mysql import get_post
 from function.transform import update_post_format
-from datetime import datetime
-from time import sleep
 
 
-def main():
+def main(request):
 
     # get posts
-    posts = get_posts(-1)
+    post = get_post(request)
 
     # transform it
-    new_posts = update_post_format(posts)
+    new_post = update_post_format(post)
 
     # post it
-    for post in new_posts:
-        try:
-            # add post
-            id = add_post(post["title"], post["content"])["id"]
+    try:
+        # add post
+        id = add_post(new_post["title"], new_post["content"])["id"]
 
-            # add acf
-            add_acf(id, post["genre"],
-                    post["sub_genre_student"], post["repeater_link"])
+        # add acf
+        add_acf(id, new_post["genre"],
+                new_post["sub_genre_student"], new_post["repeater_link"])
 
-            # print success message
-            print(f"Success on {post['title']}")
+        # print success message
+        print(f"Success on {new_post['title']}")
 
-            # reset timeout
-            sleep(0.01)
-
-        except ValueError:
-            pass
-
-    # everything success
-    return "success for all"
+    except ValueError:
+        pass
