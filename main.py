@@ -3,10 +3,10 @@ from function.mysql import get_posts
 from function.transform import update_post_format
 
 
-def main(request):
+def main():
 
     # get posts
-    posts = get_posts(int(request.args["amount"]))
+    posts = get_posts(-1)
 
     # transform it
     new_posts = update_post_format(posts)
