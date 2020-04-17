@@ -70,15 +70,15 @@ def get_links(links, files):
         return return_array
 
 
-def update_post_format(posts):
+def update_post_format(post):
     """This function transform MySQL query into request-ready format.
 
     Args:
-        posts (tupple): Old format post
+        post (tupple): 1 old format post
 
     Returns:
-        A list of dictionaries in ready to post format.
-        ex: [{
+        A dictionary in ready to post format.
+        ex: {
             title: ,
             genre: ,
             sub_genre_student: ,
@@ -87,24 +87,17 @@ def update_post_format(posts):
                 description: ,
                 url: 
             }]
-        }]
+        }
     """
 
-    posts_list = []
+    post_dict = {
+        "title": post[1],
+        "genre": get_genre(post[0]),
+        "content": post[2],
+        "repeater_link": get_links(post[3], post[4]),
+    }
 
-    # transform each item
-    for post in posts:
+    # if it's genre is "學生", add "舊貼文" to sub genre
+    post_dict["sub_genre_student"] = "舊貼文" if post_dict["genre"] == "學生" else None
 
-        post_dict = {
-            "title": post[1],
-            "genre": get_genre(post[0]),
-            "content": post[2],
-            "repeater_link": get_links(post[3], post[4]),
-        }
-
-        # if it's genre is "學生", add "舊貼文" to sub genre
-        post_dict["sub_genre_student"] = "舊貼文" if post_dict["genre"] == "學生" else None
-
-        posts_list += [post_dict]
-
-    return posts_list
+    return post_dict
