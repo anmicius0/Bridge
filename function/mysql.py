@@ -3,15 +3,15 @@ import pymysql
 from dotenv import load_dotenv
 
 
-def get_posts(length):
-    """This function get post from old database.
+def get_post(nth):
+    """This function get 1 post from old database.
 
     Args:
-        length (int): Number of post you want to get (-1 for all posts)
+        nth (int): Nth post you want to get (like python, can use 0, -1 etc.)
 
     Returns:
         A Tuple.
-        ex: ((category, title ,content, link, file), () ...)
+        ex: (category, title ,content, link, file)
     """
     load_dotenv()
 
@@ -26,12 +26,12 @@ def get_posts(length):
     cursor = connection.cursor()
 
     # SQL
-    if(length == -1):
-        sql = 'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
-                FROM wp_btaeon_msgs ORDER BY msg_time ASC'
+    if(nth >= 0):
+        sql = f'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
+                FROM wp_btaeon_msgs ORDER BY msg_time ASC LIMIT {nth}, 1'
     else:
-        sql = 'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
-                FROM wp_btaeon_msgs ORDER BY msg_time DESC LIMIT {}'.format(length)
+        sql = f'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
+                FROM wp_btaeon_msgs ORDER BY msg_time DESC LIMIT {abs(nth)-1}, 1'
 
     # execute
     cursor.execute(sql)
@@ -40,4 +40,4 @@ def get_posts(length):
     connection.close()
 
     # all result
-    return cursor.fetchall()
+    return cursor.fetchone()
