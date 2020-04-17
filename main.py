@@ -1,19 +1,28 @@
 from function.request import add_acf, add_post
+from function.mysql import get_posts
+from function.transform import update_post_format
 
 
 def main(request):
 
-    # try post
-    post_r = add_post("美好的標題", "精彩的內容")
+    # get posts
+    posts = get_posts(5)
 
-    if post_r["status"] == "error":
-        return "add_post error on post {title}".format(title=post_r["title"])
+    # transform it
+    new_posts = update_post_format(posts)
 
-    # try acf
-    acf_r = add_acf(id=post_r["id"], genre="學生", sub_genre_student="段考", repeater_link=[
-        {"description": "firefox", "url": "https://firefox.com"}, {"description": "google", "url": "https://google.com"}])
+    # post it
+    for post in new_posts:
+        try:
+            # add post
+            id = add_post(post["title"], post["content"])["id"]
 
-    if acf_r["status"] == "error":
-        return "add_acf error on {id}".format(id=post_r["id"])
+            # add acf
+            add_acf(id, post["genre"],
+                    post["sub_genre_student"], post["repeater_link"])
 
-    return "success"
+            # print success message
+            print(f"Success on {post['title']}")
+
+        except ValueError:
+            pass

@@ -2,7 +2,7 @@ import pymysql
 
 
 def get_posts(length):
-    """This function send request to ACF REST API.
+    """This function get post from old database.
 
     Args:
         length (int): Number of post you want to get (-1 for all posts)
