@@ -1,4 +1,6 @@
+import os
 import pymysql
+from dotenv import load_dotenv
 
 
 def get_posts(length):
@@ -11,21 +13,14 @@ def get_posts(length):
         A Tuple.
         ex: ((category, title ,content, link, file), () ...)
     """
+    load_dotenv()
 
-    # set connect path
-    host = 'shen.bike'
-    port = 8080
-    user = 'root'
-    passwd = 'cnmc'
-    db = 'hsnuwp'
-    charset = 'utf8'
-
-    connection = pymysql.connect(host=host,
-                                 port=port,
-                                 user=user,
-                                 password=passwd,
-                                 db=db,
-                                 charset=charset)
+    connection = pymysql.connect(host=os.getenv("DB_HOST"),
+                                 port=8080,
+                                 user=os.getenv("DB_USER"),
+                                 password=os.getenv("DB_PASSWORD"),
+                                 db='hsnuwp',
+                                 charset='utf8')
 
     # create cursor
     cursor = connection.cursor()
