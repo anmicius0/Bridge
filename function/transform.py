@@ -29,19 +29,20 @@ def get_links(links, files):
         A list of dictionaries, an None array if no links
         ex: [{
                 description: ,
-                url: 
+                url:
             }]
 
     """
     # get url
-    link_urls = re.findall(r'(https?:[^\"]+)', links)
+    link_urls = re.findall(r'(https?:[^\"]+)', str(links))
 
     # get link description
     link_descriptions = re.finlink_urls = re.findall(
-        r'\"([^h|\;|\"][^\"]+)\"', links)
+        r'\"([^h|\;|\"][^\"]+)\"', str(links))
 
     # get file url
-    file_urls = re.finlink_urls = re.findall(r'\"(bt_uploads/[^\"]+)', files)
+    file_urls = re.finlink_urls = re.findall(
+        r'\"(bt_uploads/[^\"]+)', str(files))
 
     # add prefix
     for i, url in enumerate(file_urls):
@@ -49,7 +50,7 @@ def get_links(links, files):
 
     # get file description
     file_descriptions = re.finlink_urls = re.findall(
-        r'\/([^\/]+\.\w+)\"', files)
+        r'\/([^\/]+\.\w+)\"', str(files))
 
     # combine those together
     urls = link_urls + file_urls
