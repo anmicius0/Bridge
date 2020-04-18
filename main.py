@@ -6,7 +6,7 @@ from function.transform import update_post_format
 def main(request):
 
     # get posts
-    post = get_post(request)
+    post = get_post(request.args.get("nth"))
 
     # transform it
     new_post = update_post_format(post)
