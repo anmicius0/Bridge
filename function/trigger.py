@@ -37,6 +37,10 @@ def trigger():
 
     # the coroutine
     async def fetch(url, session):
+        # print what's happening now
+        print(f"{url} triggered")
+
+        # send request every 0.1s
         time.sleep(0.1)
         async with session.get(url) as response:
             text = await response.text()
