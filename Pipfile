@@ -11,6 +11,9 @@ autopep8 = "*"
 requests = "*"
 pymysql = "*"
 python-dotenv = "*"
+aiohttp = "*"
+pypeln = "*"
+requests-async = "*"
 
 [requires]
 python_version = "3.7"
