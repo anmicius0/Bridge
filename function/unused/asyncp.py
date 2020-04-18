@@ -2,7 +2,6 @@ from aiohttp import ClientSession, TCPConnector
 import asyncio
 import sys
 import pypeln as pl
-import timeit
 import time
 
 limit = 1000
