@@ -32,7 +32,8 @@ def trigger():
 
     # set variable
     limit = 1000
-    urls = ("https://example.com{0}".format(i) for i in range(post_number))
+    urls = ("https://us-central1-hsnu-org-274410.cloudfunctions.net/import?nth={0}".format(
+        i) for i in range(post_number))
 
     # the coroutine
     async def fetch(url, session):
