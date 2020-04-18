@@ -2,6 +2,8 @@ from function.request import add_acf, add_post
 from function.mysql import get_post
 from function.transform import update_post_format
 
+# Just Fuckin' run this one
+
 
 def main(request):
 
