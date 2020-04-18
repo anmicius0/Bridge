@@ -31,7 +31,7 @@ def trigger():
     post_number = int(cursor.fetchone()[0])
 
     # set variable
-    limit = 1000
+    limit = 200
     urls = ("https://us-central1-hsnu-org-274410.cloudfunctions.net/import?nth={0}".format(
         i) for i in range(post_number))
 
@@ -41,7 +41,6 @@ def trigger():
         print(f"{url} triggered")
 
         # send request every 0.1s
-        time.sleep(0.1)
         async with session.get(url) as response:
             text = await response.text()
             print(text)
