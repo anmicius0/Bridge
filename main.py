@@ -22,6 +22,7 @@ def main(request):
 
         # print success message
         print(f"Success on {new_post['title']}")
+        return(f"Success on {new_post['title']}")
 
     except ValueError:
         pass
