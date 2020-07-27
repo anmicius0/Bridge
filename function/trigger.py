@@ -18,10 +18,10 @@ def trigger():
     load_dotenv()
 
     # get number of posts
-    connection = pymysql.connect(host=os.getenv("DB_HOST"),
+    connection = pymysql.connect(host="140.131.149.23",
                                  port=8080,
-                                 user=os.getenv("DB_USER"),
-                                 password=os.getenv("DB_PASSWORD"),
+                                 user="root",
+                                 password="cnmc",
                                  db='hsnuwp',
                                  charset='utf8')
     cursor = connection.cursor()

@@ -15,10 +15,10 @@ def get_post(nth):
     """
     load_dotenv()
 
-    connection = pymysql.connect(host=os.getenv("DB_HOST"),
+    connection = pymysql.connect(host="140.131.149.23",
                                  port=8080,
-                                 user=os.getenv("DB_USER"),
-                                 password=os.getenv("DB_PASSWORD"),
+                                 user="root",
+                                 password="cnmc",
                                  db='hsnuwp',
                                  charset='utf8')
 
@@ -28,7 +28,7 @@ def get_post(nth):
     # SQL
     if(nth >= 0):
         sql = f'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
-                FROM wp_btaeon_msgs ORDER BY msg_time ASC LIMIT {nth}, 1'
+                FROM wp_btaeon_msgs ORDER BY msg_time DESC LIMIT {nth}, 1'
     else:
         sql = f'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
                 FROM wp_btaeon_msgs ORDER BY msg_time DESC LIMIT {abs(nth)-1}, 1'
