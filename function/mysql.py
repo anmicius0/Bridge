@@ -31,7 +31,7 @@ def get_post(nth):
                 FROM wp_btaeon_msgs ORDER BY msg_time DESC LIMIT {nth}, 1'
     else:
         sql = f'SELECT msg_category, msg_title, msg_content, msg_link, msg_file \
-                FROM wp_btaeon_msgs ORDER BY msg_time DESC LIMIT {abs(nth)-1}, 1'
+                FROM wp_btaeon_msgs ORDER BY msg_time ASC LIMIT {abs(nth)-1}, 1'
 
     # execute
     cursor.execute(sql)

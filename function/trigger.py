@@ -1,6 +1,5 @@
 import os
 import pymysql
-from dotenv import load_dotenv
 from aiohttp import ClientSession, TCPConnector
 import asyncio
 import sys
@@ -15,7 +14,6 @@ def trigger():
         A Tuple.
         ex: (category, title ,content, link, file)
     """
-    load_dotenv()
 
     # get number of posts
     connection = pymysql.connect(host="140.131.149.23",
@@ -24,6 +22,7 @@ def trigger():
                                  password="cnmc",
                                  db='hsnuwp',
                                  charset='utf8')
+
     cursor = connection.cursor()
     sql = 'SELECT COUNT(*) FROM wp_btaeon_msgs'
     cursor.execute(sql)
@@ -32,8 +31,8 @@ def trigger():
 
     # set variable
     limit = 200
-    urls = ("https://us-central1-hsnu-org-274410.cloudfunctions.net/import?nth={0}".format(
-        i) for i in range(post_number))
+    urls = ("https://us-central1-digital-layout-286410.cloudfunctions.net/bridge?nth={0}".format(
+        i) for i in range(post_number * (-1)))
 
     # the coroutine
     async def fetch(url, session):
@@ -55,3 +54,7 @@ def trigger():
         on_done=lambda session: session.close(),
         run=True,
     )
+
+
+if __name__ == "__main__":
+    trigger()
