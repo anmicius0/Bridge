@@ -5,7 +5,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 
-def add_acf(id, genre, sub_genre_student, repeater_link=None):
+def add_acf(id, genre, repeater_link=None):
     """
     This function send request to ACF REST API.
 
@@ -36,7 +36,6 @@ def add_acf(id, genre, sub_genre_student, repeater_link=None):
     payload = {
         "fields": {
             "genre": genre,
-            "sub_genre_student": sub_genre_student,
             "repeater_link": repeater_link
         }
     }

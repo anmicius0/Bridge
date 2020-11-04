@@ -81,7 +81,6 @@ def update_post_format(post):
         ex: {
             title: ,
             genre: ,
-            sub_genre_student: ,
             content: ,
             repeater_link: [{
                 description: ,
@@ -96,8 +95,5 @@ def update_post_format(post):
         "content": post[2],
         "repeater_link": get_links(post[3], post[4]),
     }
-
-    # if it's genre is "學生", add "舊貼文" to sub genre
-    post_dict["sub_genre_student"] = "舊貼文" if post_dict["genre"] == "學生" else None
-
+    
     return post_dict
