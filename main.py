@@ -2,13 +2,10 @@ from function.get import get_post
 from function.transform import update_post_format
 from function.request import add_acf, add_post
 
-# Just Fuckin' run this one
-
-
-def main():
+def main(request):
 
     # get posts
-    post = get_post(0)
+    post = get_post(int(request.args.get("nth")))
 
     # transform it
     new_post = update_post_format(post)
