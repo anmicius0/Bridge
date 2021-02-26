@@ -1,4 +1,5 @@
-aiohttp==3.6.2
+-i https://pypi.org/simple/
+aiohttp==3.7.4
 astroid==2.3.3
 async-timeout==3.0.1
 attrs==19.3.0
@@ -17,15 +18,16 @@ mccabe==0.6.1
 multidict==4.7.5
 pycodestyle==2.5.0
 pylint==2.4.4
-PyMySQL==0.9.3
+pymysql==0.9.3
 pypeln==0.3.0
 python-dotenv==0.13.0
-requests==2.23.0
 requests-async==0.6.2
 requests-auth==5.1.0
+requests==2.23.0
 rfc3986==1.4.0
 six==1.14.0
 stopit==1.1.2
+typing-extensions==3.7.4.3
 urllib3==1.25.9
 wrapt==1.11.2
 yarl==1.4.2

@@ -10,7 +10,7 @@ autopep8 = "*"
 [packages]
 requests = "==2.23.0"
 python-dotenv = "==0.13.0"
-aiohttp = "==3.6.2"
+aiohttp = "==3.7.4"
 pypeln = "==0.3.0"
 requests-async = "==0.6.2"
 astroid = "==2.3.3"
